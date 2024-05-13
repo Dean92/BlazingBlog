@@ -9,21 +9,17 @@ namespace BlazingBlog.Application.Articles
 {
     public class ArticleService : IArticleService
     {
-        public List<Article> GetAllArticles()
+        private readonly IArticleRepository _articleRepository;
+
+        public ArticleService(IArticleRepository articleRepository)
         {
-            return new List<Article>
-            {
-                new Article {
-                Id = 1,
-                Title = "First Article",
-                Content = "This is the content of the first article",
-                },
-                new Article {
-                Id = 2,
-                Title = "Second Article",
-                Content = "This is the content of the second article",
-                }
-            };
+            _articleRepository = articleRepository;
+        }
+
+        public async Task<List<Article>> GetAllArticlesAsync()
+        {
+            return await _articleRepository.GetAllArticlesAsync();
+
         }
     }
 }
